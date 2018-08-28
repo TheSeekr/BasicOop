@@ -13,6 +13,13 @@ class ShopProduct{
     public $producerMainName;
     public $producerFirstName;
     public $price=0;
+    /**
+     *
+     * @var type 
+     * Adding these prorperty to work with inheritance
+     */
+    public $numPages;
+    public $playLength;
     
     /**
      * 
@@ -22,13 +29,15 @@ class ShopProduct{
      * @param type $price
      * This construct will set each property with the respective value
      * Scalar Type declaration for function param being of specific types
-     * Constraining $price if given, but it not, then it's not mandatory to provide this param
+     * Providing $numPages & $playLength for child classes so that they don't have to call __construct again
      */
-    public function __Construct(string $title,string $firstName,string $mainName,float $price= null){
+    public function __Construct(string $title,string $firstName,string $mainName,float $price,int $numpages=0,int $playLength=0){
         $this->title=$title;
         $this->producerFirstName=$firstName;
         $this->producerMainName=$mainName;
         $this->price=$price;
+        $this->numPages=$numpages;
+        $this->playLength=$playLength;
     }
     /**
      * 
@@ -38,12 +47,65 @@ class ShopProduct{
     public function getProducer(){
         return $this->producerFirstName.' '.$this->producerMainName;
     }
+    /**
+     * 
+     * @return type
+     * Getting the common details of a product
+     */
+    public function getSummaryLine(){
+        $base = "{$this->title} ({$this->producerMainName}, ";
+        $base .="{$this->producerFirstName})";
+        return $base;
+    }
 }
 /**
- * Instantiation of class ShopProduct providing [] in price intentionally to check scalar type declaration
+ * Instantiation of class ShopProduct
  */
-$product1=new ShopProduct("My Antonia", "Willa", "Cather", []);
+$product1=new ShopProduct("My Antonia", "Willa", "Cather", 5.99);
 
+class cdProduct extends ShopProduct{
+    /**
+     * 
+     * @return type
+     * This method will show the playlength of a cd
+     */
+    public function getPlayLength(){
+        return $this->playLength;
+    }
+    /**
+     * 
+     * @return type
+     * Showing the CD info with it's playlength
+     */
+    public function getSummaryLine() {
+        $base = "{$this->title}({$this->producerMainName}, ";
+        $base .="{$this->producerFirstName})";
+        $base .=": playing time - {$this->playLength}";
+        return $base;
+    }
+}
+class bookProduct extends ShopProduct{
+    public function getNumberOfPages()
+    {
+        return $this->numPages;
+    }
+    /**
+     * 
+     * @return type
+     * Showing the Book info with it's Pages Numbers
+     */
+    public function getSummaryLine() {
+        $base = "{$this->title} ({$this->producerMainNameName}, ";
+        $base .="{$this->producerFirstName} )";
+        $base .=": Page Count - {$this->numPages}";
+        return $base;
+    }
+}
+/**
+ * Instantiation of CdProduct
+ */
+$product2=new cdProduct("Exile on Coldharbour Lane", "The", "Albama 3", 10.99, 0, 60.33);
+print "Artist: {$product2->getProducer()}\n";
 /**
  * This class will be used for product's details
  */
@@ -61,10 +123,5 @@ class ShopProductWriter{
 /**
  * Instantiation of ShopProductWriter
  */
-
-/**
- * Using this class to check how a function reacts to another class's object being inserted as a param
- */
-class Wrong{}
 $writer = new ShopProductWriter();
-$writer->write(new Wrong());
+$writer->write($product1);
