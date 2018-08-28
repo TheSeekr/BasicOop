@@ -22,8 +22,9 @@ class ShopProduct{
      * @param type $price
      * This construct will set each property with the respective value
      * Scalar Type declaration for function param being of specific types
+     * Constraining $price if given, but it not, then it's not mandatory to provide this param
      */
-    public function __Construct(string $title,string $firstName,string $mainName,float $price){
+    public function __Construct(string $title,string $firstName,string $mainName,float $price= null){
         $this->title=$title;
         $this->producerFirstName=$firstName;
         $this->producerMainName=$mainName;
