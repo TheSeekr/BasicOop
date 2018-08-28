@@ -21,8 +21,9 @@ class ShopProduct{
      * @param type $mainName
      * @param type $price
      * This construct will set each property with the respective value
+     * Scalar Type declaration for function param being of specific types
      */
-    public function __Construct($title,$firstName,$mainName,$price){
+    public function __Construct(string $title,string $firstName,string $mainName,float $price){
         $this->title=$title;
         $this->producerFirstName=$firstName;
         $this->producerMainName=$mainName;
@@ -38,9 +39,9 @@ class ShopProduct{
     }
 }
 /**
- * Instantiation of class ShopProduct
+ * Instantiation of class ShopProduct providing [] in price intentionally to check scalar type declaration
  */
-$product1=new ShopProduct("My Antonia", "Willa", "Cather", "5.99");
+$product1=new ShopProduct("My Antonia", "Willa", "Cather", []);
 
 /**
  * This class will be used for product's details
